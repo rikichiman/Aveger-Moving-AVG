@@ -79,19 +79,24 @@ lineReader.on('line', function (line) {
 
 lineReader.on('close', function () {
     //Finalizing the array with the average window and keeping only 2 fields
-    for(var i=0; i< output.length;i++){
+    for(var i=0; i < output.length;i++){
         var limit=(((i+1) - win_i)>0)?((i+1) - win_i):0;
         var s=0;
         var n=0;
-        for(var j=i; j>=limit; j--){
-            s+=output[j].d;
-            n++
+        //var last_avg=0;
+        for(var j=i; j>limit; j--){
+            if (output[j].d > 0){
+                s+=output[j].d;
+                n++;
+            }
         }
-        output[i].avg_delv_time=parseInt(s/n);
+        output[i].avg_delv_time= ( s == 0 )? 0:parseFloat(parseFloat(s/n).toPrecision(4));
         final_out.push({
             date:output[i].date,
             average_delivery_time:output[i].avg_delv_time
         });
     }
-    console.log(final_out);
+    console.log("----------- OUTPUT -----------");
+    console.log(output);
+    //console.log(final_out);
 });
