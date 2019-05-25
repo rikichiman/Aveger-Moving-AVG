@@ -31,23 +31,23 @@ $ node index.js --input_file events.json --window_interval 10
 ```
 Console output:
 ```sh
-$ [ { date: '2018-12-26 18:11:00', avg_delv_time: 0, d: 0 },
-  { date: '2018-12-26 18:12:00', avg_delv_time: 40, d: 40 },
-  { date: '2018-12-26 18:13:00', avg_delv_time: 40, d: 0 },
-  { date: '2018-12-26 18:14:00', avg_delv_time: 40, d: 0 },
-  { date: '2018-12-26 18:15:00', avg_delv_time: 40, d: 0 },
-  { date: '2018-12-26 18:16:00', avg_delv_time: 35.5, d: 31 },
-  { date: '2018-12-26 18:17:00', avg_delv_time: 35.5, d: 0 },
-  { date: '2018-12-26 18:18:00', avg_delv_time: 35.5, d: 0 },
-  { date: '2018-12-26 18:19:00', avg_delv_time: 35.5, d: 0 },
-  { date: '2018-12-26 18:20:00', avg_delv_time: 35.5, d: 0 },
-  { date: '2018-12-26 18:21:00', avg_delv_time: 31, d: 0 },
-  { date: '2018-12-26 18:22:00', avg_delv_time: 31, d: 0 },
-  { date: '2018-12-26 18:23:00', avg_delv_time: 31, d: 0 },
-  { date: '2018-12-26 18:24:00', avg_delv_time: 42.5, d: 54 },
-  { date: '2018-12-26 18:25:00', avg_delv_time: 54, d: 0 },
-  { date: '2018-12-26 18:26:00', avg_delv_time: 54, d: 0 },
-  { date: '2018-12-26 18:27:00', avg_delv_time: 54, d: 54 } ]
+$ [ { date: '2018-12-26 18:11:00', average_delivery_time: 0 },
+  { date: '2018-12-26 18:12:00', average_delivery_time: 40 },
+  { date: '2018-12-26 18:13:00', average_delivery_time: 40 },
+  { date: '2018-12-26 18:14:00', average_delivery_time: 40 },
+  { date: '2018-12-26 18:15:00', average_delivery_time: 40 },
+  { date: '2018-12-26 18:16:00', average_delivery_time: 35.5 },
+  { date: '2018-12-26 18:17:00', average_delivery_time: 35.5 },
+  { date: '2018-12-26 18:18:00', average_delivery_time: 35.5 },
+  { date: '2018-12-26 18:19:00', average_delivery_time: 35.5 },
+  { date: '2018-12-26 18:20:00', average_delivery_time: 35.5 },
+  { date: '2018-12-26 18:21:00', average_delivery_time: 31 },
+  { date: '2018-12-26 18:22:00', average_delivery_time: 31 },
+  { date: '2018-12-26 18:23:00', average_delivery_time: 31 },
+  { date: '2018-12-26 18:24:00', average_delivery_time: 42.5 },
+  { date: '2018-12-26 18:25:00', average_delivery_time: 54 },
+  { date: '2018-12-26 18:26:00', average_delivery_time: 54 },
+  { date: '2018-12-26 18:27:00', average_delivery_time: 54 } ]
 ```
 
 
