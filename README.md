@@ -20,10 +20,9 @@ $ node index.js --input_file fileName --window_interval value
 Each line represents an object
 
 ```json
-{"timestamp": "2018-12-26 18:11:08.509654","translation_id": "5aa5b2f39f7254a75aa5","source_language": "en","target_language": "fr","client_name": "easyjet","event_name": "translation_delivered","nr_words": 30, "duration": 20}
+{"timestamp": "2018-12-26 18:11:08.509654","translation_id": "5aa5b2f39f7254a75aa5","source_language": "en","target_language": "fr","client_name": "easyjet","event_name": "translation_delivered","nr_words": 30, "duration": 40}
 {"timestamp": "2018-12-26 18:15:19.903159","translation_id": "5aa5b2f39f7254a75aa4","source_language": "en","target_language": "fr","client_name": "easyjet","event_name": "translation_delivered","nr_words": 30, "duration": 31}
 {"timestamp": "2018-12-26 18:23:19.903159","translation_id": "5aa5b2f39f7254a75bb33","source_language": "en","target_language": "fr","client_name": "booking","event_name": "translation_delivered","nr_words": 100, "duration": 54}
-{"timestamp": "2018-12-26 18:26:19.903159","translation_id": "5aa5b2f39f7254a75bb33","source_language": "en","target_language": "fr","client_name": "booking","event_name": "translation_delivered","nr_words": 100, "duration": 54}
 ```
 Execute the following command:
 ```sh
@@ -44,10 +43,7 @@ $ [ { date: '2018-12-26 18:11:00', average_delivery_time: 0 },
   { date: '2018-12-26 18:21:00', average_delivery_time: 31 },
   { date: '2018-12-26 18:22:00', average_delivery_time: 31 },
   { date: '2018-12-26 18:23:00', average_delivery_time: 31 },
-  { date: '2018-12-26 18:24:00', average_delivery_time: 42.5 },
-  { date: '2018-12-26 18:25:00', average_delivery_time: 54 },
-  { date: '2018-12-26 18:26:00', average_delivery_time: 54 },
-  { date: '2018-12-26 18:27:00', average_delivery_time: 54 } ]
+  { date: '2018-12-26 18:24:00', average_delivery_time: 42.5 } ]
 ```
 
 
