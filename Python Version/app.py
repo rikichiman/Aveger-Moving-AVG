@@ -89,7 +89,6 @@ def readFile(filename):
 
 
 def close(out, win_i):
-    final_out = []       # This is my final OUT
     last_avg = 0
     for i in range(len(out)):
         limit = ((i+1) - win_i) if (((i+1) - win_i) > 0) else 0
@@ -100,16 +99,10 @@ def close(out, win_i):
                 s += out[j]["d"]
                 n = n + 1
         last_avg = last_avg if (s == 0) else round(s/n, 2)
-        final_out.append({
+        print({
             "date": out[i]["date"],
             "average_delivery_time": last_avg
         })
-    return final_out
 
 
-def show(list):
-    for i in range(len(list)):
-        print(list[i])
-
-
-show(close(readFile(readArgs().input_file), readArgs().window_size))
+close(readFile(readArgs().input_file), readArgs().window_size)
