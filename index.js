@@ -1,12 +1,8 @@
 const argv = require("yargs").argv; // Used to read command line arguments with options
 var output = []; // This is my first OUT
-var final_out = []; //this is my final OUT
 var l; // Line of the file
 var date;
 var time;
-var s = 0; // Sum of duration
-var num_line = 0; //Number of lines read from the file
-var avg = 0; //Average
 var minute;
 var current_minute;
 var start = 0; //Used as boolean variable to initialize current_time
@@ -40,41 +36,26 @@ lineReader.on("line", function(line) {
   time = date[1].split(":");
 
   if (start == 0) {
-    current_minute = parseInt(time[1]);
+    current_minute = parseInt(time[1]); // initialize the first minute
     start = 1;
-  } // we initialize the first minute
+  }
   minute = parseInt(time[1]);
   seconds = parseInt(time[2].split(".")[0]); //seconds
 
   while (current_minute <= minute) {
     if (current_minute == minute) {
       if (seconds != 0) {
-        let out = {};
         d = date[0] + " " + time[0] + ":" + current_minute + ":" + "00";
-        out.date = d;
-        out.avg_delv_time = avg == 0 ? 0 : avg;
-        out.d = 0;
-        output.push(out);
+        output.push({ date: d, d: 0 });
       }
-      let out2 = {};
       current_minute++;
-      s += l.duration;
-      num_line++;
-      avg = s / num_line;
       d = date[0] + " " + time[0] + ":" + current_minute + ":" + "00";
-      out2.date = d;
-      out2.avg_delv_time = avg;
-      out2.d = l.duration;
-      output.push(out2);
+      output.push({ date: d, d: l.duration });
       current_minute++;
       break;
     }
-    let out3 = {};
     d = date[0] + " " + time[0] + ":" + current_minute + ":" + "00";
-    out3.date = d;
-    out3.avg_delv_time = avg;
-    out3.d = 0;
-    output.push(out3);
+    output.push({ date: d, d: 0 });
     current_minute++;
   }
 });
