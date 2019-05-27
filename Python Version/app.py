@@ -62,26 +62,20 @@ def readFile(filename):
                     if (seconds != 0):
                         d = date[0]+" "+time[0]+":" + \
                             str(current_minute)+":"+"00"
-                        out = {"date": d,
-                               "avg_delv_time": 0,
-                               "d": 0}
-                        output.append(out)
+                        output.append({"date": d,
+                                       "d": 0})
                     current_minute = current_minute + 1
                     d = date[0]+" "+time[0]+":" + \
                         str(current_minute)+":"+"00"
                     duration = int(l["duration"])
-                    out2 = {"date": d,
-                            "avg_delv_time": 0,
-                            "d": duration}
-                    output.append(out2)
+                    output.append({"date": d,
+                                   "d": duration})
                     current_minute = current_minute + 1
                     break
                 d = date[0]+" "+time[0]+":" +\
                     str(current_minute)+":"+"00"
-                out3 = {"date": d,
-                        "avg_delv_time": 0,
-                        "d": 0}
-                output.append(out3)
+                output.append({"date": d,
+                               "d": 0})
                 current_minute = current_minute + 1
     return output
 

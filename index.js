@@ -9,8 +9,8 @@ var start = 0; //Used as boolean variable to initialize current_time
 var win_i; // window_interval
 var in_file; //Input file name
 
-if (argv.input_file && argv.window_interval) {
-  win_i = parseInt(argv.window_interval);
+if (argv.input_file && argv.window_size) {
+  win_i = parseInt(argv.window_size);
   in_file = argv.input_file;
 } else {
   console.log("Please take a look a the documentation !");
@@ -18,7 +18,7 @@ if (argv.input_file && argv.window_interval) {
     "--input_file  <Path to the file> or filename   -----  Example:  --input_file events.json"
   );
   console.log(
-    "--window_interval  <number of minutes> or it's 1 by default   -----  Example:  --window_interval 10"
+    "--window_size  <number of minutes> or it's 1 by default   -----  Example:  --window_size 10"
   );
   console.log("Try again :))");
 }
