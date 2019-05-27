@@ -18,11 +18,11 @@ $ pip install -r requirements.txt
 
 # Usage
 ```sh
-$ node index.js --input_file fileName --window_interval value
+$ node index.js --input_file fileName --window_size value
 ```
 Or
 ```sh
-$ python app.py --input_file fileName --window_interval value
+$ python app.py --input_file fileName --window_size value
 ```
 # Input file format
 - Please take a look at events.json file.
@@ -40,13 +40,13 @@ Each line represents an object
 Execute the following command:
 
 ```sh
-$ node index.js --input_file events.json --window_interval 10
+$ node index.js --input_file events.json --window_size 10
 ```
 
 Or
 
 ```sh
-$ python app.py --input_file events.json --window_interval 10
+$ python app.py --input_file events.json --window_size 10
 ```
 
 Console output:
