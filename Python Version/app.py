@@ -5,6 +5,7 @@ import os
 listw = []  # its size never exceed the win size
 last_avg = 0   # The last computed average
 win_i = 0
+current_minute = None
 #---- input arguments ----#
 
 
@@ -43,14 +44,14 @@ def validateArgs(args):
         print('Window size must be a natural number!')
         sys.exit(1)
 
-#--- Read line by line and process the AVG at the same time IN ONE PARSE ---#
+#--- Read line by line and process the AVG at the same time IN ONE ---#
 
 
 def readFile(filename, ws):
     global win_i
+    global current_minute
     start = 0            # Used as boolean variable to initialize current_time
-    current_minute = None
-    win_i = ws
+    win_i = ws           # Initialize the window size
     with open('events.json') as file_object:
         for line in file_object:
             l = json.loads(line)
@@ -64,30 +65,23 @@ def readFile(filename, ws):
             while (current_minute <= minute):
                 if (current_minute == minute):
                     if (seconds != 0):
-                        d = date[0]+" "+time[0]+":" + \
-                            str(current_minute)+":"+"00"
-                        processAVG({"date": d,
+                        processAVG({"date": date[0]+" "+time[0]+":" +
+                                    str(current_minute)+":"+"00",
                                     "d": 0})
-                    current_minute = current_minute + 1
-                    d = date[0]+" "+time[0]+":" + \
-                        str(current_minute)+":"+"00"
-                    duration = int(l["duration"])
-                    processAVG({"date": d,
-                                "d": duration})
-                    current_minute = current_minute + 1
+                    processAVG({"date": date[0]+" "+time[0]+":" +
+                                str(current_minute)+":"+"00",
+                                "d": int(l["duration"])})
                     break
-                d = date[0]+" "+time[0]+":" +\
-                    str(current_minute)+":"+"00"
-                processAVG({"date": d,
+                processAVG({"date": date[0]+" "+time[0]+":" +
+                            str(current_minute)+":"+"00",
                             "d": 0})
-                current_minute = current_minute + 1
-
 #--- Process the Avg for every minute ---#
 
 
 def processAVG(lo):
     global last_avg
     global listw
+    global current_minute
     if (len(listw) >= win_i):
         listw.pop(0)
     listw.append(lo)
@@ -96,6 +90,7 @@ def processAVG(lo):
         "date": listw[len(listw)-1]["date"],
         "average_delivery_time": last_avg
     })
+    current_minute = current_minute + 1
 
 
 def getAvg():
