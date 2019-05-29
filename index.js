@@ -46,18 +46,21 @@ lineReader.on("line", function(line) {
   while (current_minute <= minute) {
     if (current_minute == minute) {
       if (seconds != 0) {
-        d = date[0] + " " + time[0] + ":" + current_minute + ":" + "00";
-        processAVG({ date: d, d: 0 });
+        processAVG({
+          date: date[0] + " " + time[0] + ":" + current_minute + ":" + "00",
+          d: 0
+        });
       }
-      current_minute++;
-      d = date[0] + " " + time[0] + ":" + current_minute + ":" + "00";
-      processAVG({ date: d, d: l.duration });
-      current_minute++;
+      processAVG({
+        date: date[0] + " " + time[0] + ":" + current_minute + ":" + "00",
+        d: l.duration
+      });
       break;
     }
-    d = date[0] + " " + time[0] + ":" + current_minute + ":" + "00";
-    processAVG({ date: d, d: 0 });
-    current_minute++;
+    processAVG({
+      date: date[0] + " " + time[0] + ":" + current_minute + ":" + "00",
+      d: 0
+    });
   }
 });
 
@@ -70,6 +73,7 @@ function processAVG(lo) {
     date: listw[listw.length - 1].date,
     average_delivery_time: last_avg
   });
+  current_minute++;
 }
 
 function getAvg() {
