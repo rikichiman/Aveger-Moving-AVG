@@ -1,8 +1,14 @@
 # Aveger
 Aveger is a command line tool made with Node.js
 There is also a Python verion :))
+
 ## Goal 
   - Calculate, for every minute, a moving average of the translation delivery time for the last X minutes.
+
+## How it works
+  - It uses the concept of sliding window
+  - The window data content changes in real time while reading data stream line by line from the input file
+  - The window data size never exceed the size value passed from the command line argument
 
 # Installation
 #### Node.js
