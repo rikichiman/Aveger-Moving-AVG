@@ -2,9 +2,12 @@ import json
 import argparse
 import sys
 import os
-
-
+listw = []  # its size never exceed the win size
+last_avg = 0   # The last computed average
+win_i = 0
 #---- input arguments ----#
+
+
 def readArgs():
     # Create parser to read arguments from CMD
     parser = argparse.ArgumentParser(description='Computes moving average.')
@@ -40,13 +43,14 @@ def validateArgs(args):
         print('Window size must be a natural number!')
         sys.exit(1)
 
-#--- create an array with all the minutes ---#
+#--- Read line by line and process the AVG at the same time IN ONE PARSE ---#
 
 
-def readFile(filename):
-    output = []          # This is my first OUT
+def readFile(filename, ws):
+    global win_i
     start = 0            # Used as boolean variable to initialize current_time
     current_minute = None
+    win_i = ws
     with open('events.json') as file_object:
         for line in file_object:
             l = json.loads(line)
@@ -62,41 +66,48 @@ def readFile(filename):
                     if (seconds != 0):
                         d = date[0]+" "+time[0]+":" + \
                             str(current_minute)+":"+"00"
-                        output.append({"date": d,
-                                       "d": 0})
+                        processAVG({"date": d,
+                                    "d": 0})
                     current_minute = current_minute + 1
                     d = date[0]+" "+time[0]+":" + \
                         str(current_minute)+":"+"00"
                     duration = int(l["duration"])
-                    output.append({"date": d,
-                                   "d": duration})
+                    processAVG({"date": d,
+                                "d": duration})
                     current_minute = current_minute + 1
                     break
                 d = date[0]+" "+time[0]+":" +\
                     str(current_minute)+":"+"00"
-                output.append({"date": d,
-                               "d": 0})
+                processAVG({"date": d,
+                            "d": 0})
                 current_minute = current_minute + 1
-    return output
 
 #--- Process the Avg for every minute ---#
 
 
-def close(out, win_i):
-    last_avg = 0
-    for i in range(len(out)):
-        limit = ((i+1) - win_i) if (((i+1) - win_i) > 0) else 0
-        s = 0
-        n = 0
-        for j in range(i, limit, -1):
-            if (out[j]['d'] > 0):
-                s += out[j]["d"]
-                n = n + 1
-        last_avg = last_avg if (s == 0) else round(s/n, 2)
-        print({
-            "date": out[i]["date"],
-            "average_delivery_time": last_avg
-        })
+def processAVG(lo):
+    global last_avg
+    global listw
+    if (len(listw) >= win_i):
+        listw.pop(0)
+    listw.append(lo)
+    last_avg = getAvg()
+    print({
+        "date": listw[len(listw)-1]["date"],
+        "average_delivery_time": last_avg
+    })
 
 
-close(readFile(readArgs().input_file), readArgs().window_size)
+def getAvg():
+    global last_avg
+    global listw
+    s = 0
+    n = 0
+    for i in range(len(listw)):
+        if (listw[i]["d"] > 0):
+            s += listw[i]["d"]
+            n += 1
+    return last_avg if (s == 0) else round(s/n, 2)
+
+
+readFile(readArgs().input_file, readArgs().window_size)
