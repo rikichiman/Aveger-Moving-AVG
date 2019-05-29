@@ -1,5 +1,5 @@
 const argv = require("yargs").argv; // Used to read command line arguments with options
-var output = []; // This is my first OUT
+listw = []; // its size never exceed the win size
 var l; // Line of the file
 var date;
 var time;
@@ -8,6 +8,7 @@ var current_minute;
 var start = 0; //Used as boolean variable to initialize current_time
 var win_i; // window_interval
 var in_file; //Input file name
+var last_avg = 0;
 
 if (argv.input_file && argv.window_size) {
   win_i = parseInt(argv.window_size);
@@ -46,37 +47,39 @@ lineReader.on("line", function(line) {
     if (current_minute == minute) {
       if (seconds != 0) {
         d = date[0] + " " + time[0] + ":" + current_minute + ":" + "00";
-        output.push({ date: d, d: 0 });
+        processAVG({ date: d, d: 0 });
       }
       current_minute++;
       d = date[0] + " " + time[0] + ":" + current_minute + ":" + "00";
-      output.push({ date: d, d: l.duration });
+      processAVG({ date: d, d: l.duration });
       current_minute++;
       break;
     }
     d = date[0] + " " + time[0] + ":" + current_minute + ":" + "00";
-    output.push({ date: d, d: 0 });
+    processAVG({ date: d, d: 0 });
     current_minute++;
   }
 });
 
-lineReader.on("close", function() {
-  //Finalizing the array with the average window and keeping only 2 fields
-  var last_avg = 0;
-  for (var i = 0; i < output.length; i++) {
-    var limit = i + 1 - win_i > 0 ? i + 1 - win_i : 0;
-    var s = 0;
-    var n = 0;
-    for (var j = i; j > limit; j--) {
-      if (output[j].d > 0) {
-        s += output[j].d;
-        n++;
-      }
+function processAVG(lo) {
+  //lo = line object
+  if (listw.length >= win_i) listw.shift();
+  listw.push(lo);
+  last_avg = getAvg();
+  console.log({
+    date: listw[listw.length - 1].date,
+    average_delivery_time: last_avg
+  });
+}
+
+function getAvg() {
+  var s = 0,
+    n = 0;
+  for (var i = 0; i < listw.length; i++) {
+    if (listw[i].d > 0) {
+      s += listw[i].d;
+      n++;
     }
-    last_avg = s == 0 ? last_avg : parseFloat(parseFloat(s / n).toPrecision(4));
-    console.log({
-      date: output[i].date,
-      average_delivery_time: last_avg
-    });
   }
-});
+  return s == 0 ? last_avg : parseFloat(parseFloat(s / n).toPrecision(4));
+}
