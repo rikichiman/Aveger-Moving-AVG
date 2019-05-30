@@ -1,3 +1,5 @@
+const processAVG = require('./calc_AVG').processAVG;
+//
 readFile = function (param) {
     //input is the object returned from readArgs() function
     var l; // Line of the file
